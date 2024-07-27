@@ -6,16 +6,13 @@ export class CreateCoffeeDto {
   @MaxLength(50)
   @MinLength(3)
   brand: string;
+
   @IsString()
   @IsNotEmpty()
   @MaxLength(50)
   @MinLength(3)
   name: string;
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(50)
-  @MinLength(3)
-  description: string;
+
   @IsString({ each: true })
   flavors: string[];
 }

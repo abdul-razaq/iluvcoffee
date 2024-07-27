@@ -8,12 +8,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [
     CoffeesModule,
     TypeOrmModule.forRoot({
+      type: 'postgres',
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'postgres',
-      database: 'iluvcoffee',
-      entities: ['dist/**/*.entity.js'],
+      password: 'pass123',
+      database: 'postgres',
+      autoLoadEntities: true,
+      synchronize: true,
     }),
   ],
   controllers: [AppController],
