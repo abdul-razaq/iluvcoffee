@@ -22,12 +22,12 @@ export class CoffeesController {
   async getCoffees() {
     return await this.coffeesService.getAll();
   }
-  @Get()
+  @Get(':id')
   async getCoffee(@Param('id', ParseIntPipe) id: number) {
     return await this.coffeesService.getOne(id);
   }
 
-  @Put()
+  @Put(':id')
   async updateCoffee(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateCoffeeDto: UpdateCoffeeDto,
@@ -41,7 +41,7 @@ export class CoffeesController {
     await this.coffeesService.create(coffeeDto);
   }
 
-  @Delete()
+  @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param('id', ParseIntPipe) id: number) {
     await this.coffeesService.remove(id);
