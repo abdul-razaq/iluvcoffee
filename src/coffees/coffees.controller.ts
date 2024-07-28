@@ -9,18 +9,20 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { CoffeesService } from './coffees.service';
-import { UpdateCoffeeDto } from './dtos/create-coffee-dto.ts/update-coffee.dto';
-import { CreateCoffeeDto } from './dtos/create-coffee-dto.ts/create-coffee-dto';
+import { UpdateCoffeeDto } from './dtos/update-coffee.dto';
+import { CreateCoffeeDto } from './dtos/create-coffee-dto';
+import { PaginationQueryDto } from 'src/common/dtos/pagination-query.dto';
 
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
 
   @Get()
-  async getCoffees() {
-    return await this.coffeesService.getAll();
+  async getCoffees(@Query() paginationQuery: PaginationQueryDto) {
+    return await this.coffeesService.getAll(paginationQuery);
   }
   @Get(':id')
   async getCoffee(@Param('id', ParseIntPipe) id: number) {
@@ -38,7 +40,7 @@ export class CoffeesController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() coffeeDto: CreateCoffeeDto) {
-    await this.coffeesService.create(coffeeDto);
+    return await this.coffeesService.create(coffeeDto);
   }
 
   @Delete(':id')
